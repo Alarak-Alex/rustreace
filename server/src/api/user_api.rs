@@ -3,7 +3,7 @@ use crate::service::UserService;
 use actix_web::{HttpResponse, Result, delete, get, post, put, web};
 
 // 获取所有用户
-#[get("/api/users")]
+#[get("")]
 pub async fn get_users(user_service: web::Data<UserService>) -> Result<HttpResponse> {
     match user_service.get_all_users() {
         Ok(users) => Ok(HttpResponse::Ok().json(users)),
@@ -12,7 +12,7 @@ pub async fn get_users(user_service: web::Data<UserService>) -> Result<HttpRespo
 }
 
 // 根据ID获取用户
-#[get("/api/users/id/{id}")]
+#[get("/id/{id}")]
 pub async fn get_user_by_id(
     path: web::Path<u32>,
     user_service: web::Data<UserService>,
@@ -27,7 +27,7 @@ pub async fn get_user_by_id(
 }
 
 // 根据用户名获取用户
-#[get("/api/users/username/{username}")]
+#[get("/username/{username}")]
 pub async fn get_user_by_username(
     path: web::Path<String>,
     user_service: web::Data<UserService>,
@@ -42,7 +42,7 @@ pub async fn get_user_by_username(
 }
 
 // 创建用户
-#[post("/api/users")]
+#[post("create")]
 pub async fn create_user(
     request: web::Json<CreateUserRequest>,
     user_service: web::Data<UserService>,
@@ -54,7 +54,7 @@ pub async fn create_user(
 }
 
 // 更新用户
-#[put("/api/users/id/{id}")]
+#[put("/id/{id}")]
 pub async fn update_user(
     path: web::Path<u32>,
     request: web::Json<UpdateUserRequest>,
@@ -70,7 +70,7 @@ pub async fn update_user(
 }
 
 // 删除用户
-#[delete("/api/users/id/{id}")]
+#[delete("/id/{id}")]
 pub async fn delete_user(
     path: web::Path<u32>,
     user_service: web::Data<UserService>,
