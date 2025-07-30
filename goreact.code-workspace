@@ -1,0 +1,63 @@
+{
+  "folders": [
+    {
+      "name": "GoReact (根目录)",
+      "path": "."
+    },
+    {
+      "name": "前端 (React)",
+      "path": "./front"
+    },
+    {
+      "name": "后端 (Rust)",
+      "path": "./server"
+    }
+  ],
+  "settings": {
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.suggest.autoImports": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "eslint.workingDirectories": ["front"],
+    "rust-analyzer.cargo.buildScripts.enable": true,
+    "rust-analyzer.checkOnSave.command": "clippy",
+    "[rust]": {
+      "editor.defaultFormatter": "rust-lang.rust-analyzer",
+      "editor.formatOnSave": true
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "files.associations": {
+      "*.rs": "rust"
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/target": true,
+      "**/dist": true
+    },
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/target": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "rust-lang.rust-analyzer",
+      "ms-vscode.vscode-typescript-next",
+      "bradlc.vscode-tailwindcss",
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "ms-vscode.vscode-json",
+      "formulahendry.auto-rename-tag",
+      "christian-kohler.path-intellisense",
+      "ms-vscode.vscode-npm-script",
+      "tamasfe.even-better-toml"
+    ]
+  }
+}
