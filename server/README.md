@@ -2,7 +2,7 @@
 
 ## 项目结构
 
-```
+```text
 src/
 ├── main.rs          # 应用程序入口点
 ├── api/             # API层 - 处理HTTP请求和响应
@@ -22,14 +22,16 @@ src/
 ## 分层架构说明
 
 ### 1. 模型层 (Model Layer)
+
 - **位置**: `src/model/`
 - **职责**: 定义数据结构、实体模型和数据传输对象(DTO)
-- **特点**: 
+- **特点**:
   - 包含业务实体的定义
   - 定义API请求/响应的数据结构
   - 使用Serde进行序列化/反序列化
 
 ### 2. 服务层 (Service Layer)
+
 - **位置**: `src/service/`
 - **职责**: 实现核心业务逻辑
 - **特点**:
@@ -39,6 +41,7 @@ src/
   - 独立于HTTP层，可以被不同的接口调用
 
 ### 3. API层 (API Layer)
+
 - **位置**: `src/api/`
 - **职责**: 处理HTTP请求和响应
 - **特点**:
@@ -48,6 +51,7 @@ src/
   - 处理错误和状态码
 
 ### 4. 路由层 (Router Layer)
+
 - **位置**: `src/router/`
 - **职责**: 配置URL路由和中间件
 - **特点**:
@@ -78,34 +82,39 @@ src/
 ## 运行项目
 
 1. 安装依赖:
-```bash
-cargo build
-```
 
-2. 运行服务器:
-```bash
-cargo run
-```
+   ```bash
+   cargo build
+   ```
 
-3. 服务器将在 `http://127.0.0.1:8080` 启动
+1. 运行服务器:
+
+   ```bash
+   cargo run
+   ```
+
+1. 服务器将在 `http://127.0.0.1:3001` 启动
 
 ## 测试API
 
 ### 创建用户
+
 ```bash
-curl -X POST http://127.0.0.1:8080/api/users \
+curl -X POST http://127.0.0.1:3001/api/users \
   -H "Content-Type: application/json" \
   -d '{"username": "john_doe", "email": "john@example.com"}'
 ```
 
 ### 获取所有用户
+
 ```bash
-curl http://127.0.0.1:8080/api/users
+curl http://127.0.0.1:3001/api/users
 ```
 
 ### 根据ID获取用户
+
 ```bash
-curl http://127.0.0.1:8080/api/users/id/1
+curl http://127.0.0.1:3001/api/users/id/1
 ```
 
 ## 架构优势

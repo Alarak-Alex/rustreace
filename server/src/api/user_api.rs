@@ -1,13 +1,13 @@
-use actix_web::{web, HttpResponse, Result, get, post, put, delete};
 use crate::model::{CreateUserRequest, UpdateUserRequest};
 use crate::service::UserService;
+use actix_web::{HttpResponse, Result, delete, get, post, put, web};
 
 // 获取所有用户
 #[get("/api/users")]
 pub async fn get_users(user_service: web::Data<UserService>) -> Result<HttpResponse> {
     match user_service.get_all_users() {
         Ok(users) => Ok(HttpResponse::Ok().json(users)),
-        Err(err) => Ok(HttpResponse::InternalServerError().json(format!("Error: {}", err))),
+        Err(err) => Ok(HttpResponse::InternalServerError().json(format!("Error: {err}"))),
     }
 }
 
@@ -18,11 +18,11 @@ pub async fn get_user_by_id(
     user_service: web::Data<UserService>,
 ) -> Result<HttpResponse> {
     let user_id = path.into_inner();
-    
+
     match user_service.get_user_by_id(user_id) {
         Ok(Some(user)) => Ok(HttpResponse::Ok().json(user)),
         Ok(None) => Ok(HttpResponse::NotFound().json("User not found")),
-        Err(err) => Ok(HttpResponse::InternalServerError().json(format!("Error: {}", err))),
+        Err(err) => Ok(HttpResponse::InternalServerError().json(format!("Error: {err}"))),
     }
 }
 
@@ -33,11 +33,11 @@ pub async fn get_user_by_username(
     user_service: web::Data<UserService>,
 ) -> Result<HttpResponse> {
     let username = path.into_inner();
-    
+
     match user_service.get_user_by_username(&username) {
         Ok(Some(user)) => Ok(HttpResponse::Ok().json(user)),
         Ok(None) => Ok(HttpResponse::NotFound().json("User not found")),
-        Err(err) => Ok(HttpResponse::InternalServerError().json(format!("Error: {}", err))),
+        Err(err) => Ok(HttpResponse::InternalServerError().json(format!("Error: {err}"))),
     }
 }
 
@@ -49,7 +49,7 @@ pub async fn create_user(
 ) -> Result<HttpResponse> {
     match user_service.create_user(request.into_inner()) {
         Ok(user) => Ok(HttpResponse::Created().json(user)),
-        Err(err) => Ok(HttpResponse::BadRequest().json(format!("Error: {}", err))),
+        Err(err) => Ok(HttpResponse::BadRequest().json(format!("Error: {err}"))),
     }
 }
 
@@ -61,11 +61,11 @@ pub async fn update_user(
     user_service: web::Data<UserService>,
 ) -> Result<HttpResponse> {
     let user_id = path.into_inner();
-    
+
     match user_service.update_user(user_id, request.into_inner()) {
         Ok(Some(user)) => Ok(HttpResponse::Ok().json(user)),
         Ok(None) => Ok(HttpResponse::NotFound().json("User not found")),
-        Err(err) => Ok(HttpResponse::BadRequest().json(format!("Error: {}", err))),
+        Err(err) => Ok(HttpResponse::BadRequest().json(format!("Error: {err}"))),
     }
 }
 
@@ -76,10 +76,10 @@ pub async fn delete_user(
     user_service: web::Data<UserService>,
 ) -> Result<HttpResponse> {
     let user_id = path.into_inner();
-    
+
     match user_service.delete_user(user_id) {
         Ok(true) => Ok(HttpResponse::Ok().json("User deleted successfully")),
         Ok(false) => Ok(HttpResponse::NotFound().json("User not found")),
-        Err(err) => Ok(HttpResponse::InternalServerError().json(format!("Error: {}", err))),
+        Err(err) => Ok(HttpResponse::InternalServerError().json(format!("Error: {err}"))),
     }
 }
