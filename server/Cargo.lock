@@ -1180,6 +1180,7 @@ dependencies = [
  "actix-web",
  "chrono",
  "env_logger",
+ "log",
  "serde",
  "tokio",
 ]

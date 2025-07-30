@@ -1,4 +1,4 @@
-use crate::model::{CreateCardRequest, UpdateCardRequest, CardStatus};
+use crate::model::{CardStatus, CreateCardRequest, UpdateCardRequest};
 use crate::service::CardService;
 use actix_web::{HttpResponse, Result, delete, get, post, put, web};
 
@@ -33,12 +33,16 @@ pub async fn get_cards_by_status(
     card_service: web::Data<CardService>,
 ) -> Result<HttpResponse> {
     let status_str = path.into_inner();
-    
+
     let status = match status_str.to_lowercase().as_str() {
         "todo" => CardStatus::Todo,
         "inprogress" | "in_progress" => CardStatus::InProgress,
         "done" => CardStatus::Done,
-        _ => return Ok(HttpResponse::BadRequest().json("Invalid status. Use: todo, inprogress, done")),
+        _ => {
+            return Ok(
+                HttpResponse::BadRequest().json("Invalid status. Use: todo, inprogress, done")
+            );
+        }
     };
 
     match card_service.get_cards_by_status(status) {
