@@ -1,4 +1,5 @@
 use actix_web::{App, HttpServer, middleware::Logger, web};
+use actix_cors::Cors;
 
 mod api;
 mod model;
@@ -6,6 +7,7 @@ mod router;
 mod service;
 
 use chrono::Local;
+use env_logger::fmt::Color;
 use log::info;
 use router::configure_routes;
 use service::{CardService, UserService};
@@ -23,9 +25,16 @@ async fn main() -> std::io::Result<()> {
     println!("🚀 Server starting on http://127.0.0.1:3001");
 
     HttpServer::new(move || {
+        let cors = Cors::default()
+            .allowed_origin("http://localhost:5173")
+            .allowed_methods(vec!["GET", "POST", "PUT", "DELETE"])
+            .allowed_headers(vec!["Content-Type", "Authorization"])
+            .max_age(3600);
+
         App::new()
             .app_data(web::Data::new(user_service.clone()))
             .app_data(web::Data::new(card_service.clone()))
+            .wrap(cors)
             .wrap(Logger::default())
             .configure(configure_routes)
             .route(

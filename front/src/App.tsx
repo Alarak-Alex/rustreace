@@ -1,34 +1,76 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import UserManager from './components/UserManager'
+import CardManager from './components/CardManager'
 import './App.css'
 
+type ActiveTab = 'users' | 'cards';
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeTab, setActiveTab] = useState<ActiveTab>('users')
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+      {/* 导航栏 */}
+      <nav style={{ 
+        backgroundColor: '#343a40', 
+        padding: '1rem 0',
+        marginBottom: '2rem',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{ 
+          maxWidth: '1200px', 
+          margin: '0 auto', 
+          padding: '0 20px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+          <h1 style={{ 
+            color: 'white', 
+            margin: 0,
+            fontSize: '1.5rem'
+          }}>
+            Rust + React 管理系统
+          </h1>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <button
+              onClick={() => setActiveTab('users')}
+              style={{
+                backgroundColor: activeTab === 'users' ? '#007bff' : 'transparent',
+                color: 'white',
+                border: '1px solid #007bff',
+                padding: '8px 16px',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              用户管理
+            </button>
+            <button
+              onClick={() => setActiveTab('cards')}
+              style={{
+                backgroundColor: activeTab === 'cards' ? '#007bff' : 'transparent',
+                color: 'white',
+                border: '1px solid #007bff',
+                padding: '8px 16px',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              卡片管理
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* 主要内容区域 */}
+      <main>
+        {activeTab === 'users' && <UserManager />}
+        {activeTab === 'cards' && <CardManager />}
+      </main>
+    </div>
   )
 }
 
